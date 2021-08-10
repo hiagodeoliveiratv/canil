@@ -1,0 +1,60 @@
+// PRIMEIRO PASSO
+- Criar um repositório no github e dar um git clone no link dele na pasta
+- Dar npm init
+- tsc --init pra criar a configuração do typescript
+- configurar o typescript
+ passar o target pra ES6
+ descomentar o rootDir e outDir, e colocar ./src e ./dist 
+ descomentar o moduleResolution e passar pra node
+
+- instalar as dependencias
+    npm install express mustache-express dotenv
+- instalar os types de desenvolvimento
+    npm install --save-dev @types/express @types/mustache-express @types/node
+
+    OBS: É necessário ter o nodemon, typescript e ts-node instado globalmente
+
+    npm install -g nodemon ts-node typescript 
+
+- abrir o package.json pra configurar o script pra rodar o projeto...
+    "start-dev": "nodemon -e ts,json,mustache src/server.ts"
+
+- criar pasta src e dentro criar server.js
+
+import express from 'express';
+import dotenv from 'dotenv';
+import mustache from 'mustache-express';
+import path from 'path';
+
+
+// inicia o dotenv pra rodar as variáveis de ambiente
+dotenv.config();
+
+// inicia o servidor...
+const server = express();
+
+// define a engine mustrache pra trabalhar com html
+server.set('view engine', 'mustache');
+
+// seta as pastas de view 
+server.set('views', path.join(__dirname, 'views'));
+
+// seta a engine mustache
+server.engine('mustache', mustache());
+
+// seta a pasta public dos arquivos html e css 
+server.use(express.static(path.join(__dirname, '../public')));
+
+
+// Rotas
+
+// inicia o servidor
+server.listen(process.env.PORT);
+
+// agora é só criar as rotas e controller...
+
+
+
+
+
+
